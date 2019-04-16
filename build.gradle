@@ -4,6 +4,7 @@ plugins {
 }
 
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'jacoco'
 
 group = 'com.hendisantika'
 version = '0.0.1-SNAPSHOT'
@@ -15,5 +16,37 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.2'
+    implementation 'commons-lang:commons-lang:2.6'
+    implementation 'com.h2database:h2'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'com.google.code.gson:gson:2.7'
 }
+
+clean {
+    delete "$rootDir/build"
+    delete "$rootDir/test-output"
+    delete "$rootDir/bin"
+}
+
+sourceSets {
+
+    test {
+        java {
+            srcDirs = ["src/test/java/com/hendisantika/springbootbackaccount/test/junit"]
+        }
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+check.dependsOn jacocoTestReport
+
+test { finalizedBy jacocoTestReport }
