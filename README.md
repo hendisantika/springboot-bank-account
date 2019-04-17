@@ -38,3 +38,9 @@ The goal of this mini project is to write a simple micro web service to mimic a 
 > N.B.: Added backslash to escape on Windows OS
 
 * curl -H "Content-Type: application/json" -X POST http://localhost:8080/deposit/ -d "{\"amount\":400}"
+
+### Running tests
+* Execute ** run-tests.sh **
+* Test Reports ** build/reports **
+* Test Results ** build/test-results **
+* [Code Coverage] Jacoco ** build/reports/jacoco/test/html/index.html **
