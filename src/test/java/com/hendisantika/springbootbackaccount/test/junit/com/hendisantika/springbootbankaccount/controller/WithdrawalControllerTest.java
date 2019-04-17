@@ -72,6 +72,30 @@ public class WithdrawalControllerTest extends BaseControllerTests {
 
     }
 
+    @Test
+    public void testMaxWithdrawalPerTransaction() throws Exception {
+
+        AccountTransaction transaction = new AccountTransaction(TransactionType.WITHDRAWAL.getId(), 5000, new Date());
+        AccountTransaction transaction2 = new AccountTransaction(TransactionType.WITHDRAWAL.getId(), 7500, new Date());
+
+        List<AccountTransaction> list = new ArrayList<>();
+        list.add(transaction);
+        list.add(transaction2);
+
+        UserTransaction userTransaction = new UserTransaction(25000);
+        Gson gson = new Gson();
+        String json = gson.toJson(userTransaction);
+
+        given(this.accountService.findById(1L)).willReturn(Optional.of(new Account(400000)));
+
+        given(this.transactionsService.findByDateBetweenAndType(AccountUtils.getStartOfDay(new Date()),
+                AccountUtils.getEndOfDay(new Date()), TransactionType.WITHDRAWAL.getId())).willReturn(list);
+
+        this.mvc.perform(post("/withdrawal/").contentType(MediaType.APPLICATION_JSON).content(json))
+                .andExpect(status().isOk()).andExpect(content().json("{\"success\":false,\"messages\":{\"message\":\"Exceeded Maximum Withdrawal Per Transaction\",\"title\":\"Error\"},\"errors\":{},\"data\":{},\"httpResponseCode\":406}"));
+
+    }
+
 
 
 }
