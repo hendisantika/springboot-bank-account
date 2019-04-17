@@ -41,4 +41,12 @@ public class StandardJsonResponseImpl implements StandardJsonResponse {
         }
     }
 
+    /**
+     * @return the success
+     */
+    @Override
+    public boolean isSuccess() {
+        return success;
+    }
+
 }
