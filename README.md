@@ -31,7 +31,7 @@ The goal of this mini project is to write a simple micro web service to mimic a 
 
 ### Executing API calls using Curl
 
-* curl http://localhost:8585/balance/ 
+* curl http://localhost:8080/balance/ 
 * curl -H "Content-Type: application/json" -X POST -d '{"amount":25000}' http://localhost:8080/deposit/
 * curl -H "Content-Type: application/json" -X POST -d '{"amount":15000}' http://localhost:8080/withdrawal/
 
