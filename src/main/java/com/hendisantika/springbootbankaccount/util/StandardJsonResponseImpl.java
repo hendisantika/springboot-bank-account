@@ -81,4 +81,14 @@ public class StandardJsonResponseImpl implements StandardJsonResponse {
         this.errors = errors;
     }
 
+    @Override
+    public HashMap<String, Object> getData() {
+        return data;
+    }
+
+    @Override
+    public void setData(HashMap<String, Object> data) {
+        this.data = data;
+    }
+
 }
