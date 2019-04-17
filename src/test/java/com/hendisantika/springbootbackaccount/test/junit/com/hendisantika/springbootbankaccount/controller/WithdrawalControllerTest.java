@@ -17,7 +17,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -122,5 +124,31 @@ public class WithdrawalControllerTest extends BaseControllerTests {
 
     }
 
+    @Test
+    public void testSuccessfulWithdrawal() throws Exception {
+
+        AccountTransaction transaction = new AccountTransaction(TransactionType.WITHDRAWAL.getId(), 5000, new Date());
+        AccountTransaction transaction2 = new AccountTransaction(TransactionType.WITHDRAWAL.getId(), 7500, new Date());
+
+        List<AccountTransaction> list = new ArrayList<>();
+        list.add(transaction);
+        list.add(transaction2);
+
+        UserTransaction userTransaction = new UserTransaction(1000);
+        Gson gson = new Gson();
+        String json = gson.toJson(userTransaction);
+
+        given(this.accountService.findById(1L)).willReturn(Optional.of(new Account(70000)));
+
+        given(this.transactionsService.findByDateBetweenAndType(AccountUtils.getStartOfDay(new Date()),
+                AccountUtils.getEndOfDay(new Date()), TransactionType.WITHDRAWAL.getId())).willReturn(list);
+
+        when(this.transactionsService.save(any(AccountTransaction.class))).thenReturn(transaction);
+        when(this.accountService.save(any(Account.class))).thenReturn(new Account(400));
+
+        this.mvc.perform(post("/withdrawal/").contentType(MediaType.APPLICATION_JSON).content(json))
+                .andExpect(status().isOk()).andExpect(content().json("{\"success\":true,\"messages\":{\"message\":\"Withdrawal sucessfully Transacted\",\"title\":\"\"},\"errors\":{},\"data\":{},\"httpResponseCode\":200}"));
+
+    }
 
 }
