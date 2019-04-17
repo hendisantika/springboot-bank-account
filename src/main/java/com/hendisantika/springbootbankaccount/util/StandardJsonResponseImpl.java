@@ -29,4 +29,16 @@ public class StandardJsonResponseImpl implements StandardJsonResponse {
         data = new HashMap<String, Object>();
     }
 
+    /**
+     * @param success the success to set if success is false a default message and title is added
+     */
+    @Override
+    public void setSuccess(boolean success) {
+        this.success = success;
+        if (!success) {
+            messages.put(DEFAULT_MSG_NAME_FIELD, DEFAULT_MSG_NAME_VALUE);
+            messages.put(DEFAULT_MSG_TITLE_FIELD, DEFAULT_MSG_TITLE_VALUE);
+        }
+    }
+
 }
