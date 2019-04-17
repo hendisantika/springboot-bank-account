@@ -49,4 +49,19 @@ public class StandardJsonResponseImpl implements StandardJsonResponse {
         return success;
     }
 
+    /**
+     * @return the messages
+     */
+    @Override
+    public HashMap<String, String> getMessages() {
+        return messages;
+    }
+
+    /**
+     * @param messages the messages to set
+     */
+    @Override
+    public void setMessages(HashMap<String, String> messages) {
+        this.messages = messages;
+    }
 }
