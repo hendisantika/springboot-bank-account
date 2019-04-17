@@ -20,3 +20,11 @@ The goal of this mini project is to write a simple micro web service to mimic a 
   - Cannot withdraw when balance is less than withdrawal amount
 - The service should handle all the error cases and return the appropriate error HTTP status code and error message (Eg. If an attempt is to withdraw greater than $20k in a single transaction, the error message should say “Exceeded Maximum Withdrawal Per Transaction”).
 
+### How do I run the project? ###
+* Execute ** start.sh **
+* N.B.: Internet Connection needed to donwload jars from Maven Repo
+
+### Rest Endpoints
+#### http://localhost:8080/balance/ 			[GET]
+#### http://localhost:8080/deposit/				[POST]
+#### http://localhost:8080/withdrawal/			[POST]
