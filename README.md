@@ -28,3 +28,13 @@ The goal of this mini project is to write a simple micro web service to mimic a 
 #### http://localhost:8080/balance/ 			[GET]
 #### http://localhost:8080/deposit/				[POST]
 #### http://localhost:8080/withdrawal/			[POST]
+
+### Executing API calls using Curl
+
+* curl http://localhost:8585/balance/ 
+* curl -H "Content-Type: application/json" -X POST -d '{"amount":25000}' http://localhost:8080/deposit/
+* curl -H "Content-Type: application/json" -X POST -d '{"amount":15000}' http://localhost:8080/withdrawal/
+
+> N.B.: Added backslash to escape on Windows OS
+
+* curl -H "Content-Type: application/json" -X POST http://localhost:8080/deposit/ -d "{\"amount\":400}"
