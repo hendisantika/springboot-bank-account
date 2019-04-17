@@ -15,7 +15,4 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface AccountService extends CrudRepository<Account, Long> {
-
-    Account findOne(Long id);
-
 }

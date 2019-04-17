@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 /**
  * Created by IntelliJ IDEA.
@@ -32,10 +33,10 @@ public class BalanceController extends BaseController {
         HashMap<String, Object> responseData = new HashMap<>();
 
         try {
-            Account account = accountService.findOne(ACCOUNT_ID);
+            Optional<Account> account = Optional.of(accountService.findById(ACCOUNT_ID).get());
 
-            if (account != null) {
-                responseData.put("balance", "$" + account.getAmount());
+            if (account.isPresent()) {
+                responseData.put("balance", "$" + account.get().getAmount());
 
                 jsonResponse.setSuccess(true);
                 jsonResponse.setData(responseData);

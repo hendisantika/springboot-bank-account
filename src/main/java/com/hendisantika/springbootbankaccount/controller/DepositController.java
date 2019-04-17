@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by IntelliJ IDEA.
@@ -67,10 +68,12 @@ public class DepositController extends BaseController {
                 AccountTransaction accountTransaction = new AccountTransaction(TransactionType.DEPOSIT.getId(), userTransaction.getAmount(), new Date());
                 double amount = transactionsService.save(accountTransaction).getAmount();
 
-                Account account = accountService.findOne(ACCOUNT_ID);
-                double newBalance = account.getAmount() + amount;
-                account.setAmount(newBalance);
-                accountService.save(account);
+                Optional<Account> account = accountService.findById(ACCOUNT_ID);
+                double newBalance = account.get().getAmount() + amount;
+                account.get().setAmount(newBalance);
+
+                Account account1 = account.get();
+                accountService.save(account1);
 
                 jsonResponse.setSuccess(true, "", "Deposit sucessfully Transacted");
                 jsonResponse.setHttpResponseCode(HttpStatus.SC_OK);

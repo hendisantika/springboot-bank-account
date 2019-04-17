@@ -41,7 +41,7 @@ public class WithdrawalController extends BaseController {
             double total = 0;
 
             // check balance
-            double balance = accountService.findOne(ACCOUNT_ID).getAmount();
+            double balance = accountService.findById(ACCOUNT_ID).get().getAmount();
             if (userTransaction.getAmount() > balance) {
                 jsonResponse.setSuccess(false, "Error", "You have insufficient funds");
                 jsonResponse.setHttpResponseCode(HttpStatus.SC_NOT_ACCEPTABLE);
@@ -76,7 +76,7 @@ public class WithdrawalController extends BaseController {
                 AccountTransaction accountTransaction = new AccountTransaction(TransactionType.WITHDRAWAL.getId(), userTransaction.getAmount(), new Date());
                 double amount = transactionsService.save(accountTransaction).getAmount();
 
-                Account account = accountService.findOne(ACCOUNT_ID);
+                Account account = accountService.findById(ACCOUNT_ID).get();
                 double newBalance = account.getAmount() - amount;
                 account.setAmount(newBalance);
                 accountService.save(account);
