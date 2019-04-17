@@ -91,4 +91,26 @@ public class StandardJsonResponseImpl implements StandardJsonResponse {
         this.data = data;
     }
 
+    /**
+     * @param success
+     * @param title   - message title
+     * @param message -message body
+     */
+    @Override
+    public void setSuccess(boolean success, String title, String message) {
+        this.success = success;
+        messages.put(DEFAULT_MSG_NAME_FIELD, (message == null || message.isEmpty()) ? "" : message);
+        messages.put(DEFAULT_MSG_TITLE_FIELD, (title == null || title.isEmpty()) ? "" : title);
+    }
+
+    @Override
+    public int getHttpResponseCode() {
+        return httpResponseCode;
+    }
+
+    @Override
+    public void setHttpResponseCode(int code) {
+        httpResponseCode = code;
+    }
+
 }
