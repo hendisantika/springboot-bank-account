@@ -64,4 +64,21 @@ public class StandardJsonResponseImpl implements StandardJsonResponse {
     public void setMessages(HashMap<String, String> messages) {
         this.messages = messages;
     }
+
+    /**
+     * @return the errors
+     */
+    @Override
+    public HashMap<String, String> getErrors() {
+        return errors;
+    }
+
+    /**
+     * @param errors the errors to set
+     */
+    @Override
+    public void setErrors(HashMap<String, String> errors) {
+        this.errors = errors;
+    }
+
 }
