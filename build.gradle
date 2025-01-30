@@ -22,7 +22,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'com.google.code.gson:gson:2.11.0'
+    testImplementation 'com.google.code.gson:gson:2.12.0'
 }
 
 clean {
